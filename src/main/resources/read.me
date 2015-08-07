@@ -1,0 +1,84 @@
+This was done as a freelance project for a guy in germany.. (So, please don't share with anyone if possible)
+
+
+
+Problem:
+
+The following mapping from letters to digits is given:
+
+E | J N Q | R W X | D S Y | F T | A M | C I V | B K U | L O P | G H Z
+e | j n q | r w x | d s y | f t | a m | c i v | b k u | l o p | g h z
+0 |   1   |   2   |   3   |  4  |  5  |   6   |   7   |   8   |   9
+
+We want to use this mapping for encoding telephone numbers by words, so
+that it becomes easier to remember the numbers.
+
+
+A phone number is an arbitrary(!) string of dashes - , slashes / and digits. The dashes and
+slashes will not be encoded. The words are taken from a dictionary which
+is given as an alphabetically sorted ASCII file (one word per line).
+
+[NOTE: The dictionary is in German and contains umlaut characters
+encoded as double-quotes.  The double-quotes should be ignored.  EG.]
+
+Only exactly each encoding that is possible from this dictionary and
+that matches the phone number exactly shall be printed. Thus, possibly
+nothing is printed at all. The words in the dictionary contain letters
+(capital or small, but the difference is ignored in the sorting), dashes
+- and double quotes " . For the encoding only the letters are used, but
+the words must be printed in exactly the form given in the dictionary.
+Leading non-letters do not occur in the dictionary.
+
+Encodings of phone numbers can consist of a single word or of multiple
+words separated by spaces. The encodings are built word by word from
+left to right. If and only if at a particular point no word at all from
+the dictionary can be inserted, a single digit from the phone number can
+be copied to the encoding instead. Two subsequent digits are never
+allowed, though. To put it differently: In a partial encoding that
+currently covers k digits, digit k+1 is encoded by itself if and only if,
+first, digit k was not encoded by a digit and, second, there is no word
+in the dictionary that can be used in the encoding starting at digit k+1.
+
+Your program must work on a series of phone numbers; for each encoding
+that it finds, it must print the phone number followed by a colon, a
+single(!) space, and the encoding on one line; trailing spaces are not
+allowed. All remaining ambiguities in this specification will be
+resolved by the following example. (Still remaining ambiguities are
+intended degrees of freedom.)
+
+
+Number formats:
+
+112
+5624-82
+4824
+10/783--5
+1078-913-5
+381482
+04824
+
+Requirement two: We just want to encode numbers and not the characters so we can ignore characters in final encoding.
+
+Solution:
+First we read the phone number from (file system, database , or any other source). Clean the number so that we are just left with digits..
+Now we take digits and using characters for each didgit we build terms (Term.java). Term can be single character or multiple charcaters...
+Now after creating terms we create phrases from each term (Phrase.java).Phrase is collection of terms sepqrated by spaces. While createing phrases we valid 
+each term from dictionary if its a valid term only them phrase is accepted. 
+All the phrases for a phone number means they are valid encoding. So they expresses an expression (Encoding for a phone number) so we store them in expression.java
+which is a collection of phrases.
+Once we have build the valid expression we ust print them using printer class..
+
+We repeat same as above with digit as specified in the above problem..
+
+There are certain refactoring areas like inner class in phoneencoderimpl.java class... We can take innerclass out and make it own entity 
+but it was unnecessary in this case.. 
+
+
+Entry: Entry to code is through NumberEncoderImpl.java. It has a main method that can be run probably from eclipse or one can run maven script and can 
+create jar file and run it. Probably, we can live without manifest file here???
+
+Resource: Directory has resource file PhoneNumber.txt that has some valid use cases and phonenumber.dict to refer dictionary..
+
+Note: Individual classes doesn't have comments as their name should be explanatory of their purpose.. 
+Unit Test are not part of this but they were shipped to the client 
+
